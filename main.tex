@@ -1,0 +1,176 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[hmargin=2cm,vmargin=2.5cm,bindingoffset=0.5cm]{geometry}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage{plex-serif}
+\usepackage{bookmark}
+\usepackage{fontspec}
+\usepackage{minted}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\setmonofont{Cascadia Code}
+
+\newfontfamily\ccbold{Cascadia Code Bold}
+\newfontfamily\ccitalic{Cascadia Code Italic}
+\newfontfamily\ccmono{Cascadia Code} % For monospace (important for code!)
+
+\usepackage{cellspace}
+\setlength\cellspacetoplimit{10pt} % Minimum space above cell content
+\setlength\cellspacebottomlimit{10pt} % Minimum space below cell content
+
+\definecolor{lightlightgray}{rgb}{0.95, 0.95, 0.95}
+
+% italic captions
+\usepackage[format=plain,
+            labelfont=it,
+            textfont=it]{caption}
+
+% nicer footnotes
+\usepackage[splitrule]{footmisc}
+
+% font spacing
+\setlength{\spaceskip}{0.55em plus 0.15em minus 0.15em}
+
+% image paths
+\graphicspath{{./images/}}
+
+% paragraph spacing
+\setlength{\parskip}{1em}
+
+% no indenting paragraphs (its 2025)
+\setlength{\parindent}{0pt}
+
+% nicer paragraph headings
+\usepackage{titlesec}
+\titleformat{\paragraph}
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {} 
+\titleformat{\subparagraph}
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {}
+
+% headers
+\pagestyle{fancy}
+\setlength{\headheight}{12pt}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{IGCSE Comp Sci: Arrays \& Iteration Workbook}}
+\fancyhead[R]{\small Eason Qin}
+
+\fancyfoot[C]{\thepage}
+
+%minted stuff
+
+\setminted{
+    bgcolor=lightlightgray,
+    linenos=true,
+    tabsize=4
+}
+
+% small lines
+\newcommand{\smalllines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
+% medium lines
+\newcommand{\mediumlines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
+% large lines
+\newcommand{\largelines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
+\title{IGCSE Comp Sci: Arrays \& Iteration Workbook}
+\author{Eason Qin (eason@ezntek.com)}
+\date{February 2025}
+
+\begin{document}
+
+\setlength{\arrayrulewidth}{0.3pt}
+
+\maketitle
+
+\section{Introduction}
+
+{\Large \textbf{VERY IMPORTANT! This workbook only covers Iteration, Arrays (1 and 2D), This is not comprehensive (yet).}}
+
+I'll try my best to keep this short.
+
+This document is designed to help you with Iteration, 1 and 2D arrays, functions and procedures in your IGCSE Comp Sci syllabus. I have been asked to write worksheets on this topic by my teacher, and I will try my best.
+
+\textbf{THIS WORKSHEET PACK IS NOT FOR THE FAINT-HEARTED.} They will not be easy at the end. These are IB Comp Sci style; no silly MCQs, no silly short or long paragraph answers; you will only be solving mini problems to hone your skill. For the best effect, \emph{Do the worksheet twice, in Pseudocode on this sheet first and in Python to see it in action}
+
+\textbf{NOTE:} everything in angle brackets ({\ccmono < >}) like ({\ccmono <counter>}) is a \emph{placeholder} for something; the thing you are to replace the placeholder with is described on the inside. For that example, instead of writing {\ccmono <counter>}, you write {\ccmono MyCounter}, or something similar.
+
+Have fun, dear traveller.
+
+\subsection{Prerequisites}
+
+You need to know:
+
+\begin{itemize}
+    \item comments ({\ccmono // this is a comment})
+    \item variables, constants, and pseudocode types
+    \item if statements (conditionals)
+    \item pattern matching ({\ccmono CASE OF} statements)
+\end{itemize}
+
+\newpage 
+\section{Iteration}
+\subfile{iteration.tex}
+
+\newpage
+\section{Arrays}
+\subfile{arrays.tex}
+
+\end{document}

@@ -1,0 +1,291 @@
+\documentclass[./main.tex]{subfiles}
+\graphicspath{{\subfix{./images/}}}
+
+\begin{document}
+
+Iteration in programming allows you to \textbf{execute multiple statements repeatedly}, based on a \emph{condition}. In practice, this may mean printing your name 20 times or explaining to someone a concept repeatedly until they understand.
+
+In pseudocode, there exists many types of loops.
+
+\subsection{For Loops}
+\label{sec:for_loops}
+
+For loops look as follows:
+
+\begin{minted}{text}
+FOR <counter> <- <begin> TO <end>
+    <your code goes here>
+NEXT <counter>
+\end{minted}
+
+These loops are also called \emph{count-controlled}, because a \emph{counter \textbf{controls}} the behavior of the loop. \emph{The loop runs as long as if the counter is not at the ending value}.
+
+To illustrate, here's an example:
+
+\begin{minted}{text}
+FOR Counter <- 1 TO 5
+    OUTPUT "Eason Qin"
+NEXT Counter
+\end{minted}
+
+\emph{Note: the inside of the loop is also known as the body.}
+
+The code above prints the text {\ccmono Eason Qin} to the console 5 times. A counter is kept, and the value goes from 1 to 5. Each time the code inside the loop runs, the counter is set to the current value; on the first time the code is run\footnote{First Iteration.} it will be the beginning value of 1, then after {\ccmono OUTPUT "Vedaant Atreya"} it will be 2, then 3, then 4, then 5.
+
+In fact, we can even output the counter to prove that this is happening.
+
+\begin{minted}{text}
+FOR Counter <- 1 TO 5
+    OUTPUT Counter, " Eason Qin"
+NEXT Counter
+\end{minted}
+
+Which outputs the following text:
+
+\begin{minted}{text}
+1 Eason Qin
+2 Eason Qin
+3 Eason Qin
+4 Eason Qin
+5 Eason Qin
+\end{minted}
+
+For loops also support \emph{steps}. This allows a for loop's counter to increment by a number other than one. If i wanted to print all the odd numbers till 10:
+
+\begin{minted}{text}
+FOR Counter <- 1 TO 10 STEP 2
+    OUTPUT Counter
+NEXT Counter
+\end{minted}
+
+Which outputs:
+
+\begin{minted}{text}
+1
+3
+5
+7
+9
+\end{minted}
+
+Note that 11 is not printed, as 11 is past the end, which is 10.
+
+\subsubsection{Excercises}
+\label{sec:for_loop_exercises}
+
+For the following problems, write pseudocode.
+
+\begin{enumerate}
+    \item Write code to print out \emph{your} name 5 times.
+        \mediumlines
+
+    \item Write code to print the numbers 3 till 7 with a for loop.
+        \mediumlines
+
+    \item Write code to print all the even numbers between 1 to 10. \emph{Hint: don't begin at one.}
+        \mediumlines
+
+    \item Print the times table for one number. If the number is 5, it should output 5, 10, 15, 20 etc.
+        \mediumlines
+
+    \item Write code to print numbers between 1 to 10 backwards, i.e. {\ccmono 10, 9, 8, 7, } etc.
+        \mediumlines
+\end{enumerate}
+
+\subsection{Nested Loops}
+
+Nested loops in essence are loops in loops; they allow you to repeat statements repeatedly.
+
+The following pseudocode illustrates this.
+
+\begin{minted}{text}
+FOR Outer <- 1 TO 10
+    // The inner loop.
+
+    FOR Inner <- 1 TO 3
+        OUTPUT "Inner"
+    NEXT Inner
+
+    OUTPUT "Finished iteration ", Outer
+NEXT Outer
+\end{minted}
+
+Which produces this output:
+
+\begin{minted}{text}
+Inner
+Inner
+Inner
+Finnished iteration 1
+Inner
+Inner
+Inner
+Finnished iteration 2
+Inner
+Inner
+--- output truncated ---
+\end{minted}
+\emph{Note: truncated means "end cut off".}
+
+\newpage
+\subsubsection{Excercises}
+
+For the following problems, write pseudocode.
+
+\begin{enumerate}
+    \item Print the numbers 1-5, then 2-5, 3-5, and then 4-5. \emph{hint: you can use a variable like the counter as the begin/end value.}
+        \mediumlines
+
+    \item Using your answer to exercise \ref{sec:for_loop_exercises} question 4, print the times tables for all numbers, 1 through 12.
+        \mediumlines
+\end{enumerate}
+
+\newpage
+\subsection{While Loops}
+
+While loops are similar to for loops. They typically look like this:
+
+\begin{minted}{text}
+WHILE <condition> DO
+    <code>
+ENDWHILE
+\end{minted}
+
+They allow you to repeat statements inside the loop body, like for loops. However, while loops give you more flexibility, as you can have a custom condition that dictates when the loop should run.
+
+Consider the following example:
+
+\begin{minted}{text}
+FOR Counter <- 1 TO 5
+    OUTPUT "I love programming!"
+NEXT Counter
+\end{minted}
+
+With a while loop, it would look as follows:
+
+\begin{minted}{text}
+DECLARE Counter:INTEGER
+Counter <- 1
+
+WHILE Counter <= 5 DO
+    OUTPUT "I love programming!"
+    Counter <- Counter + 1
+ENDWHILE
+\end{minted}
+
+Confusing, right?
+
+Well, lines 1 and 2 in the prior example simply sets the beginning value of the counter, as the for loop would do; it would set counter to 1. Then, while the counter is less than or equal to 5, it prints {\ccmono I love programming!}. Line 6 is actually where the magic happens; the counter is incremented by one, just as the for loop does.
+
+In fact, this is how for loops under the hood; they are almost identical to while loops in behavior; it's just that while loops give you more control over the condition.
+
+\begin{minted}{text}
+DECLARE UserNumber:INTEGER
+DECLARE Result:INTEGER
+
+UserNumber <- 0
+
+// the <> symbol means not equal to.
+WHILE UserNumber <> -1 DO 
+    OUTPUT "Please enter a number, or -1 to stop."
+    INPUT UserNumber
+
+    OUTPUT "Your number is: ", UserNumber
+ENDWHILE
+\end{minted}
+
+In the prior example, we use a while loop to do something \emph{while} the condition holds true. Breaking down the code:
+
+\begin{itemize}
+    \item Initially, {\ccmono UserNumber} is set to 0.
+    \item The loop checks if the user number is not equal to one.\footnote{Advanced learners: would this mean that this is a post-condition or pre-condition loop?}
+    \item If it holds true, execute the code. The code asks the user to enter a number. The code outputs it again.
+    \item Now {\ccmono UserNumber} may have changed, which it has; so the condition is checked again. If the condition does not hold true anymore (the user entered {\ccmono -1}), the loop exits, and so does the program. If not, the code is ran again until the condition must be checked.
+\end{itemize}
+
+Therefore, we can deduct that this loop is controlled by a condition and not a counter (although it can!); giving us more flexibility.
+
+\subsubsection{Exercises}
+
+\begin{enumerate}
+    \item Write code to count from 1 to 10, but with a while loop.
+        \mediumlines
+    \item Write code that counts from 20 to 0 in 2s, backwards (i.e, {\ccmono 20, 18, 16}, etc.) with a while loop.
+        \mediumlines
+    \item Write code that greets users. Ask for users' names and say {\ccmono Hello, User!}. If the user entered {\ccmono exit}, quit the loop. Use a while loop.
+        \largelines
+    \item Write code that checks if numbers are valid. If the number is greater than 5 and less than 20, tell the user they were right, and keep asking. If the user entered anything outside that range, quit the loop. Use a while loop, and optionally a variable that keeps track of if the user was correct or not.
+        \largelines
+\end{enumerate}
+
+\newpage
+\subsection{Repeat-until loops}
+
+\emph{Note: these do not exist in Python; one may argue Python killed the idea of needing post-condition loops entirely. I argue post-condition loops are good, but I digress.}
+
+These are actually very similar to while loops, and the name is quite intuitive\footnote{It repeats until something happens.}. They look as follows:
+
+\begin{minted}{text}
+REPEAT
+    <code>
+UNTIL <condition>
+\end{minted}
+
+There is a key difference between a while and repeat-until loop, however. Consider the example from before:
+
+\begin{minted}{text}
+DECLARE UserNumber:INTEGER
+DECLARE Result:INTEGER
+
+UserNumber <- 0
+WHILE UserNumber <> -1 DO 
+    OUTPUT "Please enter a number, or -1 to stop."
+    INPUT UserNumber
+
+    OUTPUT "Your number is: ", UserNumber
+ENDWHILE
+\end{minted}
+
+The code here:
+
+\begin{itemize}
+    \item Declares and initializes the variables.
+    \item Checks the condition.
+    \item Runs the code in the body if its true.
+\end{itemize}
+
+However, we could write this with a repeat-until loop:
+
+\begin{minted}{text}
+DECLARE UserNumber:INTEGER
+DECLARE Result:INTEGER
+
+REPEAT 
+    OUTPUT "Please enter a number, or -1 to stop."
+    INPUT UserNumber
+
+    OUTPUT "Your number is: ", UserNumber
+UNTIL UserNumber = -1
+\end{minted}
+
+There are 2 key differences here.
+
+\begin{itemize}
+    \item \emph{The code runs at least once}; regardless of the condition, it must hit the line where the condition is checked (line 9 in this case).
+    \item The condition is evaluated at the end. What this means is that the code is ran, \emph{then the condition is checked AFTERWARDS}. This is unlike the while loop, where the condition is checked first.
+    \item The condition is \emph{negated}, or flipped. The repeat-until loop does something \emph{until the condition is true}, i.e. if the loop is running, the condition must not be true, or else the until part would be satisfied!
+\end{itemize}
+
+This is also where a large advantage of a repeat-until shows. In the while loop example, on line 4, the variable must be set to 0, as the condition that needs the variable is checked, the user did not enter an input yet. However, with a repeat-until, the code is ran at least once, so the user has a chance to input something, only then will the variable be used.
+
+\subsubsection{Exercises}
+
+\begin{enumerate}
+    \item Write code to let the user guess your home country. Save your home country in a constant. Keep letting the user try until their answer matches yours. Use a repeat-until loop.
+        \largelines
+        \newpage
+    \item Write code to let the user enter the temperatures in their city. Let the user enter values until they enter a temperature too hot, i.e. above 40 degrees celsius. When it is too hot, also output "Wow, your city's temperature is so hot!" before the code stops executing. You may use a variable to keep track of the validity of the user's input. Use a repeat-until loop.
+        \largelines
+\end{enumerate}
+
+\end{document}
