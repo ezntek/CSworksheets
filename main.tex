@@ -13,6 +13,7 @@
 \usepackage{longtable}
 \setmonofont{Cascadia Code}
 
+
 \newfontfamily\ccbold{Cascadia Code Bold}
 \newfontfamily\ccitalic{Cascadia Code Italic}
 \newfontfamily\ccmono{Cascadia Code} % For monospace (important for code!)
@@ -130,6 +131,43 @@
     \end{longtable}
 }
 
+% larger lines
+\newcommand{\verylargelines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
 \title{IGCSE Comp Sci: Arrays \& Iteration Workbook}
 \author{Eason Qin (eason@ezntek.com)}
 \date{February 2025}
@@ -148,7 +186,7 @@ I'll try my best to keep this short.
 
 This document is designed to help you with Iteration, 1 and 2D arrays, functions and procedures in your IGCSE Comp Sci syllabus. I have been asked to write worksheets on this topic by my teacher, and I will try my best.
 
-\textbf{THIS WORKSHEET PACK IS NOT FOR THE FAINT-HEARTED.} They will not be easy at the end. These are IB Comp Sci style; no silly MCQs, no silly short or long paragraph answers; you will only be solving mini problems to hone your skill. For the best effect, \emph{Do the worksheet twice, in Pseudocode on this sheet first and in Python to see it in action}
+\textbf{THIS WORKSHEET PACK IS NOT FOR THE FAINT-HEARTED.} They will not be easy at the end. These are IB Comp Sci style; no silly MCQs, no silly short or long paragraph essay answers/definitions; you will only be solving mini problems to hone your skill. You may also need to justify your problem-solving skills. For the best effect, \emph{Do the worksheet twice, in Pseudocode on this sheet first and in Python to see it in action.} Please use the \href{https://ezntek.com/revision/pseudocode_reference.html}{Python to Pseudocode reference for help.}
 
 \textbf{NOTE:} everything in angle brackets ({\ccmono < >}) like ({\ccmono <counter>}) is a \emph{placeholder} for something; the thing you are to replace the placeholder with is described on the inside. For that example, instead of writing {\ccmono <counter>}, you write {\ccmono MyCounter}, or something similar.
 
@@ -172,5 +210,13 @@ You need to know:
 \newpage
 \section{Arrays}
 \subfile{arrays.tex}
+
+\section{The End?}
+
+Congratulations on coming thus far. I'm proud of you, and keep up the hard work.
+
+This is not the end (you will never stop learning new things in computer science because new things are always being made!), in terms of IGCSE, you still have to know Functions, Procedures, some builtin functions (referred to as \emph{Library Routines}), and some algorithms (sometimes referred to as \emph{standard methods of solution}) like sorting, searching, totalling, finding the minimum/maximum, etc.
+
+Attached at the end should be an answer key; although if you have the printed copy, you may not have it.
 
 \end{document}
