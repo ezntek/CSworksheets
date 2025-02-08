@@ -1,0 +1,343 @@
+\documentclass[./main.tex]{subfiles}
+\graphicspath{{\subfix{./images/}}}
+
+\begin{document}
+
+\textbf{NOTE: Please mark logically. These are general solutions; solutions can take many forms. Do not be worried if your exact output format looks dissimilar from these answers. Allow slight variations in formatting, identifiers, used variables, indentation, etc.}
+
+\subsection*{Exercise 2.1.1}
+From: \ref{ex:2_1_1}
+
+\textbf{Q1}
+\begin{minted}{text}
+FOR Counter <- 1 TO 5
+    OUTPUT "Name"
+NEXT Counter
+\end{minted}
+
+\textbf{Q2}
+\begin{minted}{text}
+FOR Counter <- 3 TO 7
+    OUTPUT Counter
+NEXT Counter
+\end{minted}
+
+\textbf{Q3}
+\begin{minted}{text}
+FOR Counter <- 2 TO 10 STEP 2
+    OUTPUT Counter
+NEXT Counter
+\end{minted}
+
+\textbf{Q3}
+\begin{minted}{text}
+FOR Counter <- 1 TO 12
+    OUTPUT 5 * Counter
+NEXT Counter
+\end{minted}
+
+\textbf{Q5}
+\begin{minted}{text}
+FOR Counter <- 10 TO 1 STEP -1
+    OUTPUT Counter
+NEXT Counter
+\end{minted}
+
+\newpage
+\subsection*{Exercise 2.2.1}
+From \ref{ex:2_2_1}
+
+\textbf{Q1}
+\begin{minted}{text}
+FOR Begin <- 1 TO 4 // Question specifies 4-5.
+    FOR Counter <- Begin TO 5
+        OUTPUT Counter
+    NEXT Counter
+NEXT Begin
+\end{minted}
+
+\textbf{Q2}
+\begin{minted}{text}
+FOR Base <- 1 TO 12
+    OUTPUT "Times tables for ", Base
+    FOR Multiplier <- 1 TO 12
+        OUTPUT Base * Multiplier
+    NEXT Multiplier
+NEXT Base
+\end{minted}
+
+\subsection*{Exercise 2.3.1}
+From \ref{ex:2_3_1}
+
+\textbf{NOTE: For these questions, allow both exclusive and inclusive ranges.}
+
+\textbf{Q1}
+\begin{minted}{text}
+DECLARE Counter:INTEGER
+Counter <- 1
+
+WHILE Counter <= 10 DO
+    OUTPUT Counter
+    Counter <- Counter + 1
+ENDWHILE
+\end{minted}
+
+\textbf{Q2}
+\begin{minted}{text}
+DECLARE Counter:INTEGER
+Counter <- 20
+
+WHILE Counter >= 0 DO    
+    OUTPUT Counter
+    Counter <- Counter - 2
+ENDWHILE
+\end{minted}
+
+\textbf{Q3}
+\begin{minted}{text}
+DECLARE Name:STRING
+Name <- "" // optional
+
+WHILE Name <> "exit" DO   
+    OUTPUT "what is your name"
+    INPUT Name
+
+    IF Name <> "exit"
+      THEN
+        OUTPUT "Hello, ", Name
+    ENDIF
+ENDWHILE
+\end{minted}
+
+\textbf{Q4}
+
+Accept code that uses the variable and doesn't. The logic and condition must be identical. Allow {\ccmono BREAK} statements despite their nonexistence in the specification of pseudocode as logic is the same.
+
+\begin{minted}{text}
+DECLARE Num:INTEGER
+DECLARE Valid:BOOLEAN
+
+Valid <- TRUE
+Num <- 0 // optional
+
+WHILE Valid DO
+    OUTPUT "enter a number"
+    INPUT Num
+
+    IF Num > 5 AND Num < 20
+      THEN
+        OUTPUT "Your input is valid"
+      ELSE
+        Valid <- FALSE
+    ENDIF
+ENDWHILE
+\end{minted}
+
+\newpage
+\subsection*{Exercise 2.4.1}
+From \ref{ex:2_4_1}
+
+\textbf{Q1}
+\begin{minted}{text}
+DECLARE Guess:STRING
+CONSTANT HomeCountry <- "China"
+
+REPEAT
+    OUTPUT "Guess my home country!"
+    INPUT Guess
+
+    // the IF statement is technically optional
+    IF Guess <> HomeCountry
+      THEN
+        OUTPUT "Not quite right..."
+    ENDIF
+UNTIL Guess = HomeCountry
+\end{minted}
+
+\textbf{Q2}
+\begin{minted}{text}
+DECLARE Temperature:INTEGER
+
+REPEAT
+    OUTPUT "Tell me the temperature in your city..."
+    INPUT Temperature
+
+    // the IF statement is technically optional
+    IF Temperature < 40
+      THEN
+        OUTPUT "Not bad..."
+    ENDIF
+UNTIL Temperature > 40
+
+OUTPUT "Wow! your city's temperature is so hot!"
+\end{minted}
+
+\subsection*{Exercise 3.2.3}
+From \ref{ex:3_2_3}
+
+\textbf{Q1}
+\begin{minted}{text}
+FOR Counter <- 5 TO 1 STEP -1
+    OUTPUT "Do you like ", FoodItems[Counter], "?"
+NEXT Counter
+\end{minted}
+
+\textbf{Q2}
+\begin{minted}{text}
+CONSTANT FoodsLength <- 10
+DECLARE FavoriteFoods:ARRAY[1:FoodsLength] OF STRING
+\end{minted}
+
+\textbf{Q3}
+\begin{minted}{text}
+FavoriteFoods[1] <- FoodItems[1]
+FavoriteFoods[2] <- FoodItems[2]
+FavoriteFoods[3] <- FoodItems[3]
+FavoriteFoods[4] <- FoodItems[4]
+FavoriteFoods[5] <- FoodItems[5]
+\end{minted}
+
+\textbf{Q4}
+\begin{minted}{text}
+FOR Counter <- 1 TO 5
+    FavoriteFoods[Counter] <- FoodItems[Counter]
+NEXT Counter
+\end{minted}
+
+\textbf{Q5}
+
+Students may loop through 1-5 and use {\ccmono Counter + 5} as the index, generating 6-10. Students may also use FoodsLength instead of 10.
+
+\begin{minted}{text}
+DECLARE Food:STRING
+
+FOR Counter <- 6 TO 10
+    OUTPUT "Enter a food: "
+    INPUT Food
+    FavoriteFoods[Counter] <- Food
+NEXT Counter
+\end{minted}
+
+\textbf{Q6}
+
+Students may use FoodsLength instead of 10.
+
+\begin{minted}{text}
+FOR Counter <- 1 TO 10
+    OUTPUT FavoriteFoods[Counter]
+NEXT Counter
+\end{minted}
+
+\newpage
+\subsection*{Exercise 3.3.3}
+From \ref{ex:3_3_3}
+
+\textbf{Q1}
+\begin{minted}{text}
+Line 5: FOR Row <- 3 TO 1 STEP -1
+Line 6: FOR Column <- 8 TO 1 STEP -1
+\end{minted}
+
+\textbf{Q2}
+\begin{minted}{text}
+DECLARE ExamScores:ARRAY[1:5,1:5] OF INTEGER 
+\end{minted}
+
+\textbf{Q3}
+\begin{itemize}
+    \item INTEGER
+    \item Boundaries depend on the implementation, but accept all negative and positive non-decimals
+    \item Since the data does not need to store decimals, nor text nor characters, INTEGER makes the most sense.
+\end{itemize}
+
+\textbf{Q4}
+\begin{minted}{text}
+DECLARE Num:INTEGER
+Num <- 0 // optional
+
+FOR Row <- 1 TO 5
+    FOR Column <- 1 TO 5
+        // also allow while loops.
+
+        REPEAT
+            OUTPUT "enter a number: "
+            INPUT Num
+            
+            IF Num < 5 AND NUM > 10
+              THEN
+                OUTPUT "invalid input! try again..."
+            ENDIF
+        UNTIL Num >= 5 AND NUM <= 10
+    NEXT Column
+NEXT Row
+\end{minted}
+
+\newpage
+\subsection*{Exercise 3.4.1}
+From \ref{ex:3_4_1}
+
+\textbf{Q1}
+\begin{minted}{text}
+FOR Counter <- 1 TO 5
+    OUTPUT "Name: ", StudentNames[Counter]
+    
+    // as long as if the student attempts to output something, the answer
+    // should be accepted. the objective is to test the understanding of
+    // the concept of parallel arrays bind data through the index.
+    //
+    OUTPUT "Science: ", StudentGrades[1]
+    OUTPUT "Math: ", StudentGrades[2]
+    OUTPUT "English: ", StudentGrades[3]
+NEXT Counter
+\end{minted}   
+
+\textbf{Q2}
+
+If the student attempts to calculate the median/mode, give them a pat on their back for their effort and rebeliousness.
+
+\begin{minted}{text}
+DECLARE Total:INTEGER
+DECLARE Average:REAL // make sure it is REAL, do not accept INTEGER
+                      // this variable is also optional
+
+FOR Counter <- 1 TO 5
+    OUTPUT "Name: ", StudentNames[Counter]
+    
+    // A for loop is appreciated, but not required. 
+    // Here, additions are wrapped to the next line.
+    Total <- StudentGrades[Counter,1]
+             + StudentGrades[Counter,2]
+             + StudentGrades[Counter,3]
+    Average <- Total / 3
+
+    OUTPUT "Average grade is: ", Average
+NEXT Counter
+\end{minted}   
+
+\textbf{Q3}
+\begin{minted}{text}
+DECLARE Total:INTEGER
+DECLARE Average:REAL
+DECLARE LowestAverage:REAL
+DECLARE LowestAverageName:STRING
+
+LowestAverage <- 0 // LowestAverage will be accessed without
+                    // being initialized in the loop.
+                    // The student must initialize this.
+
+FOR Counter <- 1 TO 5
+    Total <- StudentGrades[1] + StudentGrades[2] + StudentGrades[3]
+    Average <- Total / 3
+
+    IF Average < LowestAverage
+      THEN
+        LowestAverageName <- StudentName[Counter]
+        LowestAverage <- Average
+    ENDIF
+NEXT Counter
+
+OUTPUT "The lowest scorer was ", LowestAverageName
+OUTPUT "They earned a ", LowestAverage, " average."
+\end{minted}
+
+\end{document}
