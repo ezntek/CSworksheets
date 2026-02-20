@@ -1,0 +1,91 @@
+\documentclass[./main.tex]{subfiles}
+\graphicspath{{\subfix{./images/}}}
+
+\begin{document}
+
+\subsection{Re-evaluating Arrays as a data structure}
+
+In order to understand the properties, advantages and disadvantages of linked lists, we must re-evaluate how arrays work. Take this array
+in Java as an example:
+
+\begin{minted}{java}
+int[] nums = {3, 4, 5, 6};
+\end{minted}
+
+the array \emph{\texttt{nums}} stores multiple numbers in the same variable by placing them next to each other in memory. For example:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \foreach \i/\v in {0/3,1/4,2/5,3/6} {
+            \pgfmathsetmacro\x{\i*1.5}
+            \draw[thick] (\x,0) rectangle (\x+1.5,1);
+            \node[anchor=south] at (\x+0.75,1.1) {\mono \small \i};
+            \node[orange] at (\x+0.75, 0.5) {\monobold{\v}};
+        }
+        \draw[gray,thick,->] (0.6, -0.6) -| (0,-0.1);
+        \node[gray,anchor=west] at (0.7, -0.6) {\mono \small Address 0x4000: \emph{nums}};
+    \end{tikzpicture}
+    \caption{the array in the above code block in memory}
+    \label{fig:array}
+\end{figure}
+
+\emph{Note that numbers beginning in {\mono 0x} denote a hexadecimal value. {\mono 0x4000} in hexadecimal is actually {\mono 16384} in decimal/denary.}
+
+Since the items of the array are stored next to each other in memory, accessing specific indices\footnote{indexes} is simple.
+Let us assume that each number in the array is a java {\mono int} which is a 4 byte wide/32 bit wide integer.
+In memory, the array would look as such:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \foreach \i/\v in {0/3,1/4,2/5,3/6} {
+            \pgfmathsetmacro\x{\i*2}
+            \draw[thick] (\x,0) rectangle (\x+2,1);
+            \node[orange] at (\x+1, 0.5) {\monobold{\v}};
+        }
+        \node[gray,anchor=south] at (1,1.1) {\mono \small 0x4000};
+        \node[gray,anchor=south] at (3,1.1) {\mono \small 0x4004};
+        \node[gray,anchor=south] at (5,1.1) {\mono \small 0x4008};
+        \node[gray,anchor=south] at (7,1.1) {\mono \small 0x400C};
+    \end{tikzpicture}
+    \caption{the addresses where the integers begin are now labeled.}
+    \label{fig:array-memory}
+\end{figure}
+
+The the locations of the integers in memory follow a \emph{predictable} pattern. Therefore, it is easy to access arbitrary
+array indices by simply performing a math calculations. Since the array is at address {\mono 0x4000}, 
+accessing the first element requires you to add {\mono 0} bytes to the address. Accessing the second element requires you to
+add {\mono 1×4} or {\mono 4} bytes to the address, i.e. the \emph{size of one integer}. For the third one, we must add
+{\mono 2×4} or {\mono 8} bytes to the address, i.e. the size of \emph{two integers}\footnote{If you notice the pattern, the first element requires you to multiply 4 by 0 for the address of the first element, by 1 for the second, and by 2 for the third, and so on. \emph{This is why arrays start at zero}.}.
+
+
+\subsection{Linked Lists}
+
+Similar to arrays, linked lists allow you to store many pieces of data in a given order in one collection/group. Instead of storing items in
+a contiguous\footnote{Continuous/without interruptions/together/next to each other} chunk of memory that cannot grow or shrink, Linked Lists
+store data as individual data points, called nodes. Not only do these nodes store the data itself, they also store the address of the next
+item in the Linked List, a.k.a a \emph{pointer}.
+
+Pointers are a programming concept you will not see in the IB Computer Science course, but they play an important role in programming. Languages
+like Java simply do a good job of hiding pointers to the extent that they are used under-the-hood, but you will never need to interact with/see
+one directly. Simply put, \emph{pointers are just memory addresses stored in a variable/class field.}
+
+Take this class as an example:
+
+\begin{minted}{java}
+class Node {
+    public int data;
+    public Node next;
+}
+\end{minted}
+
+Since every object of every class is a \emph{pointer} to the class's data stored elsewhere, the {\mono next} field of the class actually behaves as such.
+The {\mono next} field actually stores the location of another node somewhere else, which is perfect for our use case.
+
+In memory, it looks as such:
+
+But for the sake of simplicity, most textbooks depict linked lists like so:
+
+
+\end{document}

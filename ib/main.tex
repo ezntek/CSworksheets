@@ -1,0 +1,220 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[hmargin=2cm,vmargin=2.5cm,bindingoffset=0.5cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,filecolor=magenta,urlcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage{roboto}
+\usepackage{bookmark}
+\usepackage{fontspec}
+\usepackage{minted}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{cellspace}
+\usepackage{xspace}
+\usepackage{tikz}
+
+% macro for printing
+%\newif\ifprint
+%\printtrue
+%\newcommand{\urllink}[2]{%
+%    \ifprint
+%        \url{#1}
+%    \else
+%        \href{#1}{#2}
+%    \fi
+%}
+
+% fonts
+\setmainfont{Roboto Serif}
+\setmonofont{IBM Plex Mono}
+\newfontfamily\monobold{IBM Plex Mono Bold}
+\newfontfamily\monoitalic{IBM Plex Mono Italic}
+\newfontfamily\mono{IBM Plex Mono}
+
+% table cell stuff
+\setlength\cellspacetoplimit{10pt} % Minimum space above cell content
+\setlength\cellspacebottomlimit{10pt} % Minimum space below cell content
+
+% italic captions
+\usepackage[format=plain,
+            labelfont=it,
+            textfont=it]{caption}
+
+% nicer footnotes
+\usepackage[splitrule]{footmisc}
+
+% font spacing
+\setlength{\spaceskip}{0.55em plus 0.15em minus 0.15em}
+
+% image paths
+\graphicspath{{./images/}}
+
+% paragraph spacing
+\setlength{\parskip}{1em}
+
+% no indenting paragraphs (its 2026)
+\setlength{\parindent}{0pt}
+
+% nicer paragraph headings
+\usepackage{titlesec}
+\titleformat{\paragraph}
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {} 
+\titleformat{\subparagraph}
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {}
+
+% headers
+\pagestyle{fancy}
+\setlength{\headheight}{12pt}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{IB SL Comp Sci: Abstract Data Types Workbook}}
+\fancyhead[R]{\small Eason Qin}
+
+\fancyfoot[C]{\thepage}
+
+%minted stuff
+\definecolor{lightlightgray}{rgb}{0.97, 0.97, 0.97}
+\setminted{
+    bgcolor=lightlightgray,
+    bgcolorpadding=0.3em,
+    linenos=true,
+    tabsize=4
+}
+
+% small lines
+\newcommand{\smalllines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
+% medium lines
+\newcommand{\mediumlines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
+% large lines
+\newcommand{\largelines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
+% larger lines
+\newcommand{\verylargelines}{
+    \begin{longtable}{p{0.9\textwidth}}
+        \rule{0pt}{20pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} \\
+        \hline \\
+        \rule{0pt}{10pt} 
+    \end{longtable}
+}
+
+\title{IB SL Comp Sci: Abstract Data Types Workbook}
+\author{Eason Qin (eason@ezntek.com)}
+\date{March 2026}
+
+\begin{document}
+
+\setlength{\arrayrulewidth}{0.3pt}
+
+\maketitle
+
+\section{Introduction}
+
+This workbook was written by Eason Qin for the IB Diploma Program: Computer Science course for the "new syllabus",
+i.e. content for examinations from 2027 and onwards. It will follow a simple explanation\-trial\-practice structure
+for the 2 ADTs that standard level students must learn, stacks and queues.
+
+For higher level students, you must also learn linked lists, as well as tree data structures like binary search trees,
+hashmaps and such, but \emph{since a knowledge of linked lists is crucial to understanding how stacks and queues work
+under-the-hood, and how stacks and queues can be implemented,} I will assume that \textbf{\emph{standard level students
+will also learn linked lists}} until the section that says "exclusively HL only".
+
+The workbook assumes that you learn Java at your school. Students who do Python can follow along, but must implement
+these in Python themselves. This also assumes that you are familiar with the basic concepts in programming, including
+iteration, conditionals, functions (methods) and arrays.
+
+This resource is licensed under the CC-BY-NC 4.0 International license\footnote{Visit \url{https://creativecommons.org/licenses/by-nc/4.0/deed.en} for more information.}.
+
+\newpage
+\section{Linked Lists} \label{sec:linked-lists}
+\subfile{linkedlists.tex}
+
+\newpage
+\section{Answers} \label{sec:answers}
+\subfile{answers.tex}
+
+\end{document}
