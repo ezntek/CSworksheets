@@ -59,33 +59,151 @@ accessing the first element requires you to add {\mono 0} bytes to the address. 
 add {\mono 1×4} or {\mono 4} bytes to the address, i.e. the \emph{size of one integer}. For the third one, we must add
 {\mono 2×4} or {\mono 8} bytes to the address, i.e. the size of \emph{two integers}\footnote{If you notice the pattern, the first element requires you to multiply 4 by 0 for the address of the first element, by 1 for the second, and by 2 for the third, and so on. \emph{This is why arrays start at zero}.}.
 
+The issue with arrays, are that in order to insert new elements, you must create entirely new memory. This is because all arrays have a fixed and predetermined size. There might be memory after or before the array that is already in use, which cannot be moved.
+
+Therefore, one could produce a new array and copy all the data from the old memory to it.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \foreach \i/\v in {0/3,1/4,2/5,3/6} {
+            \pgfmathsetmacro\x{\i*2}
+            \draw[thick] (\x,2) rectangle (\x+2,3);
+            \node[orange] at (\x+1, 2.5) {\monobold{\v}};
+            \draw[thick,orange,->] (\x+1,1.9) -- (\x+1,1.1);
+        }
+        \foreach \i/\v in {0/3,1/4,2/5,3/6,4/7} {
+            \pgfmathsetmacro\x{\i*2}
+            \draw[thick] (\x,0) rectangle (\x+2,1);
+            \node[orange] at (\x+1, 0.5) {\monobold{\v}};
+        }
+    \end{tikzpicture}
+    \caption{"extending" the memory requires one to make a new array and copy all elements to it.}
+    \label{fig:array-extend}
+\end{figure}
+
+where 7 is the new item to be added.
+
+In Java, this looks as such:
+
+\begin{minted}{java}
+int old[4] = {3, 4, 5, 6};
+int extended[5] = new int[5];
+
+for (int i = 0; i < old.length; i++) {
+    extended[i] = old[i];
+}
+
+// we now have space to put the 7 
+extended[4] = 7;
+\end{minted}
+
+However, assuming if we had 1000 elements, if we wanted to add a 1001st element, that would require copying 1000 items in memory, and having 2001 items worth of space reserved in memory until the copy is finished, at which point, Java will automatically clean up the 1000 items.
+
+Linked lists help us solve this problem.
 
 \subsection{Linked Lists}
 
 Similar to arrays, linked lists allow you to store many pieces of data in a given order in one collection/group. Instead of storing items in
 a contiguous\footnote{Continuous/without interruptions/together/next to each other} chunk of memory that cannot grow or shrink, Linked Lists
-store data as individual data points, called nodes. Not only do these nodes store the data itself, they also store the address of the next
-item in the Linked List, a.k.a a \emph{pointer}.
+store data as individual data points, called nodes. Not only do these nodes store the data itself, they also store the location of where the next
+item in the Linked List is.
 
-Pointers are a programming concept you will not see in the IB Computer Science course, but they play an important role in programming. Languages
-like Java simply do a good job of hiding pointers to the extent that they are used under-the-hood, but you will never need to interact with/see
-one directly. Simply put, \emph{pointers are just memory addresses stored in a variable/class field.}
+The overall intuition is, that the ordering of the list is actually independent of the order of the items in memory. Unlike arrays, linked lists
+do not assume that your items are always next to each other. Conceptually, they look like this:
 
-Take this class as an example:
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        % boxes
+        \pgfmathsetmacro\w{1.5}
+        \foreach \i in {0,1,2,3,4,5,6,7,8,9} {
+            \pgfmathsetmacro\x{\i*\w}
+            \pgfmathparse{(\i <= 1) || ((\i >= 8) && (\i <= 9))}
+            \ifnum\pgfmathresult = 1 
+                \draw[thick, fill=gray!40] (\x,0) rectangle (\x+\w,1);
+            \else
+                \draw[thick] (\x,0) rectangle (\x+\w,1);
+            \fi
+        }
 
-\begin{minted}{java}
-class Node {
-    public int data;
-    public Node next;
-}
-\end{minted}
+        % numbers and dots
+        \pgfmathparse{(2*\w)+(\w/2)}
+        \node[orange] at (\pgfmathresult,0.5) {\monobold 3};
+        \pgfmathparse{(3*\w)+(\w/2)}
+        \fill[orange] (\pgfmathresult,0.5) circle (0.05);
+        \pgfmathparse{(4*\w)+(\w/2)}
+        \node[orange] at (\pgfmathresult,0.5) {\monobold 4};
+        \pgfmathparse{(5*\w)+(\w/2)}
+        \fill[orange] (\pgfmathresult,0.5) circle (0.05);
+        \pgfmathparse{(6*\w)+(\w/2)}
+        \node[orange] at (\pgfmathresult,0.5) {\monobold 5};
+        \pgfmathparse{(7*\w)+(\w/2)}
+        \fill[orange] (\pgfmathresult,0.5) circle (0.05);
 
-Since every object of every class is a \emph{pointer} to the class's data stored elsewhere, the {\mono next} field of the class actually behaves as such.
-The {\mono next} field actually stores the location of another node somewhere else, which is perfect for our use case.
+        % arrows
+        \pgfmathsetmacro{\beginx}{(3*\w)+(\w/2)}
+        \pgfmathsetmacro{\endx}{(4*\w)+(\w/2)}
+        \draw[thick,orange,->] (\beginx,0.5) -- (\beginx,-0.5) -- (\endx,-0.5) -- (\endx,-0.1);
 
-In memory, it looks as such:
+        \pgfmathsetmacro{\beginx}{(5*\w)+(\w/2)}
+        \pgfmathsetmacro{\endx}{(6*\w)+(\w/2)}
+        \draw[thick,orange,->] (\beginx,0.5) -- (\beginx,1.5) -- (\endx,1.5) -- (\endx,1.1);
+    \end{tikzpicture}
+    \caption{Linked lists, in memory. Gray represents used memory}
+    \label{fig:contiguous-ll}
+\end{figure}
 
-But for the sake of simplicity, most textbooks depict linked lists like so:
+where each pair of boxes (number and dot with an arrow) is called a Node. For now, \emph{simply assume that nodes are just another data type, which can be the type of a variable}.
+
+Let us assume that each node is a variable\footnote{Yes, variables \emph{can} also be stored next to each other in memory! If you declare two integers, one after another in code, they will be placed next to each other in memory, as that is simply the most efficient.}, if we create 3 nodes with the numbers {\mono 3, 4, 5}, they will be next to each other in memory. However, suppose your program runs for a while, and more memory is used by variables, function parameters, and whatnot. If you wanted to add a new item to the linked list, you would not need to reallocate anything, instead, you can just \emph{create another node somewhere else, and point the dot on the node that stores 5 to the new one.}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        % boxes
+        \pgfmathsetmacro\w{1.5}
+        % skip 4 and 5 for ellipses
+        \foreach \i in {0,1,2,3,6,7,8,9} {
+            \pgfmathsetmacro\x{\i*\w}
+            \pgfmathparse{((\i >= 2) && (\i <= 7))}
+            \ifnum\pgfmathresult = 1 
+                \draw[thick, fill=gray!40] (\x,0) rectangle (\x+\w,1);
+            \else
+                \draw[thick] (\x,0) rectangle (\x+\w,1);
+            \fi
+        }
+
+        % dots
+        \foreach \i in {0,1,2,3,4,5,6} {
+            \pgfmathsetmacro{\spacing}{0.25}
+            \pgfmathsetmacro{\x}{3.25+(\i*\spacing)}
+            \pgfmathparse{(\x*\w)+(\w/1)}
+            \fill[gray] (\pgfmathresult,0.5) circle (0.05);
+        }
+
+        % data
+        \pgfmathparse{(0*\w)+(\w/2)}
+        \node[orange] at (\pgfmathresult,0.5) {\monobold 5};
+        \pgfmathparse{(1*\w)+(\w/2)}
+        \fill[orange] (\pgfmathresult,0.5) circle (0.05);
+
+        \pgfmathparse{(8*\w)+(\w/2)}
+        \node[orange] at (\pgfmathresult,0.5) {\monobold 6};
+        \pgfmathparse{(9*\w)+(\w/2)}
+        \fill[orange] (\pgfmathresult,0.5) circle (0.05);
+
+        % arrows
+        \pgfmathsetmacro{\beginx}{(1*\w)+(\w/2)}
+        \pgfmathsetmacro{\endx}{(8*\w)+(\w/2)}
+        \draw[thick,orange,->] (\beginx,0.5) -- (\beginx,-0.5) -- (\endx,-0.5) -- (\endx,-0.1);
+    \end{tikzpicture}
+    \caption{The gray dots represent a long section of used memory.}
+    \label{fig:ll-append}
+\end{figure}
+
+This idea of the link between nodes forming the order of the list is what makes a linked list...linked. The arrows themselves are actually
+\emph{pointers}, meaning that the arrows actually simply store the memory address of the beginning of the next node.
 
 
 \end{document}
