@@ -8,12 +8,62 @@
 \usepackage{bookmark}
 \usepackage{fontspec}
 \usepackage{minted}
-\usepackage{color}
+\usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{longtable}
 \usepackage{cellspace}
 \usepackage{xspace}
 \usepackage{tikz}
+\usepackage{parskip}
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{minted}
+
+\tcbset{
+    before skip=1em,
+    after skip=1em,
+    before upper={\setlength{\parskip}{0.85em}},
+}
+
+\newtcolorbox{importantbox}[1][] {
+    enhanced,
+    colback=yellow!6!white,
+    colframe=yellow!78!black,
+    width=0.92\textwidth,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+    title={Important Information!},
+    arc=1.5mm,
+    boxrule=1pt,
+    center,
+    autoparskip,
+    minted options={
+        linenos,
+        xleftmargin=1em,
+        numbersep=0.1em,
+    },
+    #1
+}
+
+\newtcolorbox{tryitbox}[2][] {
+    before upper={\setlength{\parskip}{0.6em}},
+    enhanced,
+    colback=blue!4!white,
+    colframe=blue!60!white,
+    width=0.92\textwidth,
+    coltitle=black,
+    fonttitle=\bfseries\large,
+    title={Try It Yourself \##2},
+    arc=1.5mm,
+    boxrule=1pt,
+    center,
+    minted options={
+        linenos,
+        xleftmargin=0pt,
+        numbersep=0pt,
+    },
+    #1
+}
 
 % macro for printing
 %\newif\ifprint
