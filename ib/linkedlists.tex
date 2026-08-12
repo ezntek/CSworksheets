@@ -103,17 +103,29 @@ up the 1000 items.
 
 Linked lists help us solve this problem.
 
-\subsection{Linked Lists}
+\subsection{Singly Linked Lists}
 
-Similar to arrays, linked lists allow you to store many pieces of data in a given order in one collection/group. Instead
-of storing items in a continuous chunk of memory that cannot grow or shrink, linked lsts store data as individual data
-points, called nodes. Not only do these nodes store the data itself, they also store the location of where the next item
-in the linked list is.
+\begin{importantbox}
+    Every reference to a ``linked list'' will be to a \textbf{singly} linked list.
+    If you have not read ahead, it means a linked list that only has pointers in one
+    direction; just a ``normal'' linked list if you will.
+
+    If I mention something like a \emph{``doubly linked list''}, this means something
+    different, so just assume everything is singly.
+\end{importantbox}
+
+Similar to arrays, linked lists allow you to store many pieces of data in a given order in one collection/group.
+
+The idea is quite simple: instead of storing items in a continuous chunk of memory that cannot grow or shrink, linked
+lests store data as individual data points, called nodes. Not only do these nodes store the data itself, they also
+store the location of where the next item in the linked list is.
 
 This essentially forms the list as a chain, with one item linked to the next one. This means that the list does not have
 a fixed size (unlike arrays), and that as long as there is space for another number and a link to the next one (or none)
 the list can grow. When there are no numbers to link to ahead, it links to {\mono null}, or address 0, signifiying the
 end of the linked list.
+
+This is what it conceptually looks like:
 
 \begin{figure}[htbp]
     \centering
@@ -134,7 +146,7 @@ end of the linked list.
         }
         \node[orange] at (14.5,0.5) {\monobold null};
     \end{tikzpicture}
-
+    \caption{A simple illustrative diagram of a singly linked list.}
 \end{figure}
 
 \begin{importantbox}
@@ -311,6 +323,7 @@ of these nodes that refer one after another is a linked list.
 \subsection{Operations on Linked Lists}
 
 \subsubsection{Iterating through a Linked List}
+\label{sec:linked-list-iteration}
 
 If we ever get a hold of a linked list, we can traverse it, meaning that we go through each item. Just like how we can use
 a counter to go over each item of an array and use the data, we can take the node's data, use it and move onto the next node, until
@@ -328,9 +341,9 @@ static void printEntireLinkedList(Node head) {
     \end{minted}
     
     and that {\mono node.data} is a String, try completing the method from line 3
-    to print out every item in the linked list on a new line.
+    to print out every item in the linked list on a new line. Use a while loop.
 
-    \emph{Hint: use current to keep track of the current node you are looking at, and
+    \emph{Hint: use ``current'' to keep track of the current node you are looking at, and
     repeatedly print the data and move on until current becomes null.}
 \end{tryitbox}
 
@@ -349,32 +362,155 @@ public class Demo {
         third.next = null;
         return first;
     }
-    // getNumbers() returns the head of a linked list.
+    // getNumbers() returns the head of a linked list.aegisfortia maimai
 }
 \end{minted}
 
 This is very basic, and has no practical purpose, however.
 
+\subsubsection{Adding Nodes to the End of a Linked List}
+
+\begin{importantbox}
+The act of adding something to the end of a list (any list for that matter) is called \emph{appending}.
+\end{importantbox}
+
+This is one of the more simple tasks you can do with linked lists. The idea is simple; given a linked list of
+{\mono String}s like so:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \pgfmathsetmacro\w{1.8}
+        \foreach \i in {0,1,3,4} {
+            \pgfmathsetmacro\x{\i*\w}
+            \draw[thick] (\x,0) rectangle (\x+\w,1);
+        }
+        \foreach \i\n in {0/Apple,3/Orange} {
+            \pgfmathparse{(\i*\w)+(\w/2)}
+            \node[orange] at (\pgfmathresult,0.5) {\monobold \n};
+            \pgfmathparse{((\i+1)*\w)+(\w/2)}
+            \pgfmathsetmacro\circlex{\pgfmathresult}
+            \fill[orange] (\circlex,0.5) circle (0.05);
+            \draw [orange,->,line width=1pt] (\circlex,0.5) -- (\circlex+\w+0.5,0.5);
+        }
+        % this value is just eyeballed lol
+        \node[orange] at (11.3,0.5) {\monobold null};
+
+        \draw[gray,thick,->] (0.6, -0.6) -| (0,-0.1);
+        \node[gray,anchor=west] at (0.7, -0.6) {\mono \small \emph{head}};
+    \end{tikzpicture}
+\end{figure}
+
+And given that the node is defined as such:
+
+\begin{minted}{java}
+class Node {
+    String item;
+    Node next;
+
+    Node(String s) {
+        this.item = s;
+    }
+}
+\end{minted}
+
+And given that \emph{head} is a method defined as such:
+
+\begin{minted}{java}
+static void appendNewItem(Node head, String newItem) {
+    // ...
+}
+\end{minted}
+
+How does one complete the method, append to the end of the list list referred to by head?
+
+The simple answer would just be to access the Node containing ``Orange'', and then setting it's value
+of {\mono next} to whatever the new item is. If you wanted to cheat, you could just do this:
+
+\begin{minted}{java}
+static void appendNewItem(Node head, String newItem) {
+    head.next.next = new Node(newItem);
+    // ^^^ bad! ^^^
+}
+\end{minted}
+
+But this would kind of \emph{assume} that the list is only 2 items long, and in computer science, we 
+want to \emph{generalize} as much of our work as possible. \emph{How do you append an item to the end of any
+given list?}
+
+One could generalize this to two steps:\footnote{This is just how I like to think about it}
+
+\begin{enumerate}
+    \item Somehow get a hold of the last node of the list.
+    \item Assign its next to a new node containing your data.
+\end{enumerate}
+
+The first step you have already learned in \ref{sec:linked-list-iteration}, which looks something like this:
+
+\begin{minted}{java}
+static void appendNewItem(Node head, String newItem) {
+    Node current = head;
+    while (current != null) {
+        // no need to do anything with the data, just move on
+        current = current.next;
+    }
+    // Should be the last valid node, right?
+    current.next = new Node(newItem); 
+}
+\end{minted}
+
+But notice a problem? \emph{on line 7, the value of current is null.} This is because our loop terminated when
+current became null, meaning that this happened on the last iteration:
+
+\begin{enumerate}
+    \item Current is not null, so we do {\mono current = current.next}
+    \item On the next iteration on line 3, {\mono current} is null. Stop.
+\end{enumerate}
+
+A diagram best illustrates this:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \fill[gray] (-1.4, 0.5) circle (0.05);
+        \fill[gray] (-1, 0.5) circle (0.05);
+        \fill[gray] (-0.6, 0.5) circle (0.05);
+
+        \pgfmathsetmacro\w{1.5}
+        \foreach \i in {0,1,3,4} {
+            \pgfmathsetmacro\x{\i*\w}
+            \draw[thick] (\x,0) rectangle (\x+\w,1);
+        }
+        \foreach \i\n in {0/???,3/???} {
+            \pgfmathparse{(\i*\w)+(\w/2)}
+            \node[orange] at (\pgfmathresult,0.5) {\monobold \n};
+            \pgfmathparse{((\i+1)*\w)+(\w/2)}
+            \pgfmathsetmacro\circlex{\pgfmathresult}
+            \fill[orange] (\circlex,0.5) circle (0.05);
+            \draw [orange,->,line width=1pt] (\circlex,0.5) -- (\circlex+\w+0.5,0.5);
+        }
+        % this value is just eyeballed lol
+        \node[orange] at (9.8,0.5) {\monobold null};
+
+        % 5.1 = 4.5 + 0.6
+        \draw[green!50!black,thick,->] (5.1, -0.6) -| (4.5,-0.1);
+        \node[green!50!black,anchor=west] at (5.2, -0.6) {\mono \small \emph{current}};
+    \end{tikzpicture}
+\end{figure}
+
+\begin{tryitbox}{2}
+    This should be a simple exercise; can you fix the above method?
+
+    \emph{Hint: this is a one-line fix.}
+\end{tryitbox}
+
 \subsubsection{Converting an Array to a Linked List}
 
-\subsubsection{Adding Nodes to the End of a Linked List}
 
 \subsubsection{Removing Nodes from the End of a Linked List}
 
 \subsubsection{Inserting an Item at a Position in a Linked List}
 
 \subsubsection{Removing an Item at a Position in a Linked List}
-
-
-Note that linked lists do not necessarily only need to store one piece of data per node. \emph{What makes a linked list special, is that each item
-(or node) only needs to store a reference to the next node for it to be a linked list}. For example, this is also a valid linked list node:
-
-
-\subsubsection{Easy Questions}
-
-\begin{enumerate}
-    \item Assume a 
-\end{enumerate}
-
 
 \end{document}
