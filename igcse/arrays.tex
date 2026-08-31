@@ -33,16 +33,16 @@ and in Python:
 Declaring an array is trivial:
 
 \begin{minted}{text}
-DECLARE <variable>:ARRAY[<begin>:<end>] OF <type>
+DECLARE <variable>: ARRAY[<begin>:<end>] OF <type>
 \end{minted}
 
 And as an example:
 
 \begin{minted}{text}
 // I want 3 cats, so I give space for elements between 1 and 3.
-DECLARE CatNames:ARRAY[1:3] OF STRING 
+DECLARE CatNames: ARRAY[1:3] OF STRING 
 
-DECLARE Scores:ARRAY[1:8] OF INTEGER
+DECLARE Scores: ARRAY[1:8] OF INTEGER
 \end{minted}
 
 When you work with arrays, you also have to access the data stored within them. This process is known as \emph{indexing}.
@@ -71,7 +71,7 @@ Array[2] <- 'F' // sets the second element to the character F.
 To wrap this new knowledge up, let us create an array of food items.
 
 \begin{minted}{text}
-DECLARE FoodItems:ARRAY[1:5] OF STRING
+DECLARE FoodItems: ARRAY[1:5] OF STRING
 \end{minted}
 
 We must fill it up with items. In programming terms, this is known as \emph{populating}.
@@ -154,8 +154,8 @@ Write pseudocode for all below questions.
 Declaring them can be done as follows:
 
 \begin{minted}{text}
-//                         COLUMNS       ROWS
-DECLARE <variable>:ARRAY[<begin>:<end>,<begin>:<end>] OF <type>
+//                          COLUMNS       ROWS
+DECLARE <variable>: ARRAY[<begin>:<end>,<begin>:<end>] OF <type>
 \end{minted}
 
 Confusing, right?
@@ -191,7 +191,7 @@ The objective of my explanation is not to explain why 2D arrays are so useful fo
 Let us declare the 2D array we described.
 
 \begin{minted}{text}
-DECLARE Lockers:ARRAY[1:8,1:3] OF STRING
+DECLARE Lockers: ARRAY[1:8,1:3] OF STRING
 \end{minted}
 
 Indexing a 2D array is as simple as providing 2 indexes. The first of which is the row, and the second of which is the column. This may seem very, very counterintuitive, but looking back at figure \ref{fig:2darray}, 2D arrays are stored rows-first, so to access a cell in the grid, you must get the correct row first. This is contrary to math, where coordinates on the cartesian plane are specified as {\ccmono (x, y)}, such as {\ccmono (5, 2)}. To get the cell at {\ccmono (5, 2)} in math terms, we write:
@@ -215,7 +215,7 @@ Remember when we used a single for loop to loop through a 1D array? Now, guess w
 ...if you guessed a nested loop, you are correct. The inner loop here would loop through one row, and the outer loop controls how many rows are iterated through.
 
 \begin{minted}{text}
-DECLARE CurrentName:STRING
+DECLARE CurrentName: STRING
 CurrentName <- "" // it is always good practice to initialize your
                    // variable after you declare it!
 
@@ -275,7 +275,7 @@ Unclear, right?
 Now imagine this dataset:
 
 \begin{itemize}
-    \item I have a list of names ({\ccmono DECLARE ARRAY[1:5] OF STRING}).
+    \item I have a list of names ({\ccmono DECLARE Names: ARRAY[1:5] OF STRING}).
     \item I have a bunch of exam scores that correspond to the students in the array. Each student has 3 exam scores for Science, Math and English.
 \end{itemize}
 

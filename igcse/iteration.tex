@@ -165,9 +165,9 @@ NEXT Counter
 With a while loop, it would look as follows:
 
 \begin{minted}{text}
-DECLARE Counter:INTEGER
+DECLARE Counter: INTEGER
 Counter <- 1
-
+ 
 WHILE Counter <= 5 DO
     OUTPUT "I love programming!"
     Counter <- Counter + 1
@@ -181,8 +181,8 @@ Well, lines 1 and 2 in the prior example simply sets the beginning value of the 
 In fact, this is how for loops under the hood; they are almost identical to while loops in behavior; it's just that while loops give you more control over the condition.
 
 \begin{minted}{text}
-DECLARE UserNumber:INTEGER
-DECLARE Result:INTEGER
+DECLARE UserNumber: INTEGER
+DECLARE Result: INTEGER
 
 UserNumber <- 0
 
@@ -236,8 +236,8 @@ UNTIL <condition>
 There is a key difference between a while and repeat-until loop, however. Consider the example from before:
 
 \begin{minted}{text}
-DECLARE UserNumber:INTEGER
-DECLARE Result:INTEGER
+DECLARE UserNumber: INTEGER
+DECLARE Result: INTEGER
 
 UserNumber <- 0
 WHILE UserNumber <> -1 DO 
@@ -259,8 +259,8 @@ The code here:
 However, we could write this with a repeat-until loop:
 
 \begin{minted}{text}
-DECLARE UserNumber:INTEGER
-DECLARE Result:INTEGER
+DECLARE UserNumber: INTEGER
+DECLARE Result: INTEGER
 
 REPEAT 
     OUTPUT "Please enter a number, or -1 to stop."

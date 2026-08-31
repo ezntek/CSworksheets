@@ -4,19 +4,20 @@
 \usepackage[colorlinks=true]{hyperref}
 \usepackage{graphicx}
 \usepackage{subfiles}
-\usepackage{plex-serif}
+\usepackage{roboto}
 \usepackage{bookmark}
 \usepackage{fontspec}
 \usepackage{minted}
 \usepackage{color}
 \usepackage{fancyhdr}
 \usepackage{longtable}
-\setmonofont{Cascadia Mono}
 
-
-\newfontfamily\ccbold{Cascadia Code Bold}
-\newfontfamily\ccitalic{Cascadia Code Italic}
-\newfontfamily\ccmono{Cascadia Mono}
+% We used cascadia code before, so cc.
+\setmainfont{Roboto Serif}
+\setmonofont{IBM Plex Mono}
+\newfontfamily\ccbold{IBM Plex Mono Bold}
+\newfontfamily\ccitalic{IBM Plex Mono Italic}
+\newfontfamily\ccmono{IBM Plex Mono}
 
 \usepackage{cellspace}
 \setlength\cellspacetoplimit{10pt} % Minimum space above cell content
@@ -168,9 +169,9 @@
     \end{longtable}
 }
 
-\title{IGCSE Comp Sci: Arrays \& Iteration Workbook}
+\title{IGCSE Computer Science: Arrays \& Iteration Workbook}
 \author{Eason Qin (eason@ezntek.com)}
-\date{February 2025}
+\date{August 2026\\\emph{Second Revision}}
 
 \begin{document}
 
@@ -180,17 +181,13 @@
 
 \section{Introduction}
 
-{\Large \textbf{VERY IMPORTANT! This workbook only covers Iteration, Arrays (1 and 2D), This is not comprehensive (yet).}}
+{\Large \textbf{VERY IMPORTANT! This workbook only covers Iteration and Arrays (1 and 2D).}}
 
-I'll try my best to keep this short.
+This document is designed to help you learn and practice Iteration (all the different types of loops) and Arrays (Array programming with both 1D and 2D arrays) in your IGCSE Computer Science syllabus. Please use the \href{https://ezntek.com/revision/pseudocode_reference.html}{Python to Pseudocode reference for help with pseudocode syntax.}
 
-This document is designed to help you with Iteration, 1 and 2D arrays, functions and procedures in your IGCSE Comp Sci syllabus. I have been asked to write worksheets on this topic by my teacher, and I will try my best.
-
-\textbf{THIS WORKSHEET PACK IS NOT FOR THE FAINT-HEARTED.} They will not be easy at the end. These are IB Comp Sci style; no silly MCQs, no silly short or long paragraph essay answers/definitions; you will only be solving mini problems to hone your skill. You may also need to justify your problem-solving skills. For the best effect, \emph{Do the worksheet twice, in Pseudocode on this sheet first and in Python to see it in action.} Please use the \href{https://ezntek.com/revision/pseudocode_reference.html}{Python to Pseudocode reference for help.}
+You can also use the \href{https://beancode-web.net}{Beancode Web IDE}, which ships an IGCSE Pseudocode interpreter called \href{https://github.com/ezntek/beancode}{Beancode}, which can run your pseudocode.
 
 \textbf{NOTE:} everything in angle brackets ({\ccmono < >}) like ({\ccmono <counter>}) is a \emph{placeholder} for something; the thing you are to replace the placeholder with is described on the inside. For that example, instead of writing {\ccmono <counter>}, you write {\ccmono MyCounter}, or something similar. This document is also licensed under the CC BY-SA-NC 4.0 Int'l License.
-
-Have fun, dear traveller.
 
 \subsection{Prerequisites}
 
@@ -213,7 +210,7 @@ You need to know:
 
 \section{The End?}
 
-Congratulations on coming thus far. I'm proud of you, and keep up the hard work.
+Congratulations on coming thus far.
 
 This is not the end (you will never stop learning new things in computer science because new things are always being made!), in terms of IGCSE, you still have to know Functions, Procedures, some builtin functions (referred to as \emph{Library Routines}), and some algorithms (sometimes referred to as \emph{standard methods of solution}) like sorting, searching, totalling, finding the minimum/maximum, etc.
 
