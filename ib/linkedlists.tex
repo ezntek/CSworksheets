@@ -347,28 +347,8 @@ static void printEntireLinkedList(Node head) {
     repeatedly print the data and move on until current becomes null.}
 \end{tryitbox}
 
-\subsubsection{Creating a Linked List Manually}
-
-The most naïve way to construct a linked list is to create the nodes separately, and link the next fields manually.
-
-\begin{minted}{java}
-public class Demo {
-    static Node getNumbers() {
-        Node first = new Node(1);
-        Node second = new Node(2);
-        Node third = new Node(3);
-        first.next = second;
-        second.next = third;
-        third.next = null;
-        return first;
-    }
-    // getNumbers() returns the head of a linked list.aegisfortia maimai
-}
-\end{minted}
-
-This is very basic, and has no practical purpose, however.
-
 \subsubsection{Adding Nodes to the End of a Linked List}
+\label{sec:linked-list-append}
 
 \begin{importantbox}
 The act of adding something to the end of a list (any list for that matter) is called \emph{appending}.
@@ -504,10 +484,89 @@ A diagram best illustrates this:
     \emph{Hint: this is a one-line fix.}
 \end{tryitbox}
 
+\subsubsection{Creating a Linked List Manually}
+
+The most naïve way to construct a linked list is to create the nodes separately, and link the next fields manually.
+
+\begin{minted}{java}
+public class Demo {
+    static Node getNumbers() {
+        Node first = new Node(1);
+        Node second = new Node(2);
+        Node third = new Node(3);
+        first.next = second;
+        second.next = third;
+        third.next = null;
+        return first;
+    }
+    // getNumbers() returns the head of a linked list.
+}
+\end{minted}
+
+This is very basic, and has no practical purpose, however.
+
+
 \subsubsection{Converting an Array to a Linked List}
 
+This is one of the more common ways to build a linked list. Recall how you can iterate
+through an array, getting access to each member of the array in order like this:
+
+\begin{minted}{java}
+String[] fruits = {"Apple", "Orange", "Grape", "Banana"};
+for (int i = 0; i < fruits.length; i++) {
+    // for example, we can print the array and the index.
+    System.out.println(i + ": " + fruits[i]);
+}
+\end{minted}
+
+To convert an array to a linked list, we can use the same technique as in section \ref{sec:linked-list-append},
+but we can start with an empty linked list and "append" each item to that list until we are done
+iterating through the array.
+
+\begin{minted}{java}
+class Node {
+    String data;
+    Node next;
+
+    Node(String data) {
+        this.data = data;
+    }
+}
+
+// ==== later ====
+String[] fruits = {"Apple", "Orange", "Grape", "Banana"};
+Node list = null;
+for (int i = 0; i < fruits.length; i++) {
+    // Just for convenience
+    Node currentNode = new Node(fruits[i]);  
+    if (list == null) {
+        list = currentNode;
+    } else {
+        list.next = currentNode;
+        list = list.next;
+    }
+}
+\end{minted}
+
+\begin{tryitbox}{3}
+    \begin{itemize}
+        \item This is the basic idea of the algorithm. However, we lose the head of the linked list, so we can't
+              actually use it later. \emph{can you find a way to retain the head of the list?}
+        \item As a further exercise, can you complete this method:
+              \begin{minted}[numbersep=3pt]{java}
+// Method that takes in a string array and returns the
+// head of a linked list of strings.
+static Node arrayToLinkedList(String[] items) {
+    // your code goes here
+}
+              \end{minted}
+    \end{itemize}
+
+\end{tryitbox}
 
 \subsubsection{Removing Nodes from the End of a Linked List}
+
+
 
 \subsubsection{Inserting an Item at a Position in a Linked List}
 
