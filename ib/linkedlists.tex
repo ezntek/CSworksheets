@@ -496,7 +496,7 @@ public class Demo {
         Node third = new Node(3);
         first.next = second;
         second.next = third;
-        third.next = null;
+        third.next = null/
         return first;
     }
     // getNumbers() returns the head of a linked list.
@@ -507,6 +507,7 @@ This is very basic, and has no practical purpose, however.
 
 
 \subsubsection{Converting an Array to a Linked List}
+\label{sec:array-to-ll}
 
 This is one of the more common ways to build a linked list. Recall how you can iterate
 through an array, getting access to each member of the array in order like this:
@@ -601,6 +602,130 @@ where we have a hold of the second-last node in the list.
 
 \subsubsection{Inserting an Item at a Position in a Linked List}
 
+In order to do this, we must do the following:
+
+\begin{enumerate}
+    \item Traverse the linked list, as before, until we reach the node \emph{right before the target position}.
+    \item Create a new node.
+    \item Set the new node's {\mono next} to the {\mono next} next of the node in the first step. 
+    \item Set the node in step 1's {\mono next} to the new node. 
+\end{enumerate}
+
+With the same node class for \ref{sec:array-to-ll}, the code for that looks something like the following:
+(Turn to the next page)
+
+\newpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{./images/llinsert.png}
+\end{figure}
+
+And in code: (Turn to the next page)
+
+\newpage
+
+\begin{minted}{java}
+static void insertAt(Node head, String data, int target) {
+    Node current = head;
+
+    // this will keep track of the current position of the index
+    int i = 0;
+
+    // we must stop our loop before the target!
+    while (current != null && i < target - 1) {
+        current = current.next;
+        i++;
+    }
+
+    // our loop stopped, either because cur == null or i >= target - 1.
+    // if we are out of bounds, we must handle it!!
+    if (cur == null) {
+        System.out.println("Out of bounds");
+        return;
+    }
+
+    Node newNode = new Node(data);
+    
+    newNode.next = current.next;
+    current.next = newNode;
+
+}
+\end{minted}
+
+\begin{tryitbox}{4}
+    Unfortunately, there is a bug in the above code, as usual. When the target is 0 (as in, ``inserting''
+    at the front of the list), the code will not execute correctly. Could you suggest a fix? 
+\end{tryitbox}
+
 \subsubsection{Removing an Item at a Position in a Linked List}
+
+Like the previous section, this is not a fully trivial task. The general steps are:
+
+\begin{enumerate}
+    \item Traverse the linked list until we reach the node right before the target position (for deletion).
+    \item Ensure that the node after the node found in step 1 is not null.
+    \item Point the node in step 1 (i.e. set that node's {\mono next} to {\mono node.next.next}), skipping
+          over the one to be deleted.
+\end{enumerate}
+
+In diagram form, this looks as such:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{images/lldelete.png}
+\end{figure}
+
+Note that when we bypass the node we want to delete, Java will automatically delete it, as there is no way to
+reach that node anymore. No variable stores it or anything.
+
+Finally, it looks as such in code:
+
+\begin{minted}{java}
+static void removeAt(Node head, int target) {
+    // Ensure that our list acctually has items
+    if (head == null) {
+        System.out.print("The list is empty");
+        return;
+    }
+
+    // We can actually recycle the code from the previous section,
+    // as the task of going to the correct index is the same.
+    Node current = head;
+    int i = 0;
+
+    while (current != null && i < target - 1) {
+        current = current.next;
+        i++;
+    }
+
+    // The loop will terminate somehow, in the case that current == null, or
+    // i >= target - 1. In case of the first event, or if the item that we
+    // are skipping over doesn't exist somehow, we must exit.
+    if (current == null || current.next == null) {
+        System.out.println("Out of bounds");
+        return;
+    }
+
+    // This will do the skipping over, as shown in the diagram.
+    current.next = current.next.next;
+}
+\end{minted}
+
+\begin{tryitbox}{5}
+    There is a similar bug as in Try It Yourself \#4, regarding handling the case where the
+    first item must be deleted. Can you try adding a condition that will perform the correct
+    behavior?
+\end{tryitbox}
+
+\subsection{Answers}
+
+\begin{minted}{java}
+    // Since the logic that will be shown ahead
+    if (target == 0) {
+        head = head.next;
+        return;
+    }
+\end{minted}
 
 \end{document}

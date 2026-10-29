@@ -5,4 +5,4 @@ main.pdf:
 
 .PHONY: clean
 clean:
-	rm -f *.aux *.log *.bbl *.blg *.dvi *.ps *.toc *.lof *.lot main.pdf
+	rm -f *.aux *.log *.bbl *.blg *.dvi *.ps *.toc *.lof *.lot *_latexmk *.fls main.pdf
